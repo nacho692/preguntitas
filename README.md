@@ -7,3 +7,5 @@ respuestas que voy encontrando.
 Cada carpeta del repo es auto contenida.
 El historial de git muestra los cambios necesarios para implementar la solución
 a la pregunta planteada.
+
+- [Cómo reutilizo en VueJS3 la lógica de búsqueda de data y la eventual presentación de errores?](/fetcher-component/README.md)
