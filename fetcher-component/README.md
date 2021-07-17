@@ -81,3 +81,21 @@ mientras que los componentes hijos implementan la presentación:
   {{ myStrings.data.join(" - ") }}
 </fetcher>
 ```
+
+## Consideraciones
+
+La solución propuesta se queda corta por algunas razones:
+- Además del fetch de la data, el componente `fetcher` está encargándose de
+mostrar el título y la descripción del componente hijo.
+Idealmente debería haber un tercer componente que se encargue de eso.
+- Esta solución asume que la data buscada en cada componente hijo se utiliza
+únicamente en ese componente.
+Es decir, asume que no hay otros lugares en la aplicación en los cuales se
+utilice el mismo recurso pero tal que se lo presente de una manera distinta.
+Esto es sin embargo común en SPAs, por lo que da para ver como se extiende esta
+idea en tales casos y en particular con el uso de stores como redux o vuex.
+- Tampoco exploré el tema de la actualización de la data.
+En seguida surgen varias preguntas respecto de qué componentes deben encargarse
+de realizar los pedidos de modificaciones, de cómo debe enterarse el componente
+padre que debe realizar una actualización o de cómo debe realizarse tal
+actualización.
