@@ -23,3 +23,61 @@ misma cantidad de componentes que esencialmente hacen lo mismo:
 dada la URL del recurso que tienen que mostrar, pedir tal recurso y pasarlo al 
 componente hijo que presenta la data;
 si el fetch falla, mostrar un mensaje y si hay que actualizar, actualizar.
+
+## Solución
+
+No sorpresivamente, la solución propuesta es abstraer la lógica de fetching en
+un único componente.
+Para esto usamos los
+[scoped slots](https://v3.vuejs.org/guide/component-slots.html#scoped-slots)
+de vue.
+En [`index.js`](index.js) y su diff de commits puede verse el detalle del cambio
+necesario.
+Esencialmente el componente padre se encarga de pedir la data
+```javascript
+async created() {
+  const response = await getResource(this.url)
+  if (response.status === 200) {
+    Object.assign(this.$data, {
+      loading: false,
+      errorOccurred: false,
+      fetchedData: response.data,
+    })
+  } else {
+    Object.assign(this.$data, {
+      loading: false,
+      errorOccurred: true,
+      fetchedData: null,
+    })
+  }
+}
+```
+y mostrar lo relacionado al fetching:
+```html
+<div>
+  <section>
+    <h2>{{ title }}</h2>
+    <h5>{{ description }}</h5>
+  </section>
+  <section v-if="loading">
+    <p>Cargando...</p>
+  </section>
+  <section v-else-if="errorOccurred">
+    <p>Ocurrió un error</p>
+  </section>
+  <section v-else>
+    <slot :data="fetchedData" />
+  </section>
+</div>
+```
+mientras que los componentes hijos implementan la presentación:
+```html
+<fetcher
+  title="Primer componente"
+  description="Este componente espera un arreglo de strings y los concatena."
+  url="/api/first"
+  v-slot="myStrings"
+>
+  {{ myStrings.data.join(" - ") }}
+</fetcher>
+```

@@ -20,14 +20,12 @@ const getResource = async (url) => {
   return { status: 404 };
 };
 
-Vue.createApp({
+const fetcherComponent = {
   template: `
     <div>
       <section>
-        <h2>Primer componente</h2>
-        <h5>
-          Este componente espera un arreglo de strings y los concatena.
-        </h5>
+        <h2>{{ title }}</h2>
+        <h5>{{ description }}</h5>
       </section>
       <section v-if="loading">
         <p>Cargando...</p>
@@ -36,108 +34,16 @@ Vue.createApp({
         <p>Ocurrió un error</p>
       </section>
       <section v-else>
-        {{ myStrings.join(" - ") }}
+        <slot :data="fetchedData" />
       </section>
     </div>
   `,
+  props: ["title", "description", "url"],
   data() {
     return {
       loading: true,
       errorOccurred: false,
-      myStrings: null,
-    };
-  },
-  async created() {
-    const response = await getResource("/api/first")
-    if (response.status === 200) {
-      Object.assign(this.$data, {
-        loading: false,
-        errorOccurred: false,
-        myStrings: response.data,
-      })
-    } else {
-      Object.assign(this.$data, {
-        loading: false,
-        errorOccurred: true,
-        myStrings: null,
-      })
-    }
-  }
-})
-.mount('#first');
-
-Vue.createApp({
-  template: `
-    <div>
-      <section>
-        <h2>Segundo componente</h2>
-        <h5>Este componente espera un arreglo de objetos y presenta cada uno en un párrafo.</h5>
-      </section>
-      <section v-if="loading">
-        <p>Cargando...</p>
-      </section>
-      <section v-else-if="errorOccurred">
-        <p>Ocurrió un error</p>
-      </section>
-      <section v-else>
-        <p
-          v-for="({ id, name }, index) in myObjects"
-          v-bind:key="index"
-        >
-          id: {{ id }}; name: {{ name }}
-        </p>
-      </section>
-    </div>
-  `,
-  data() {
-    return {
-      loading: true,
-      errorOccurred: false,
-      myObjects: null,
-    };
-  },
-  async created() {
-    const response = await getResource("/api/second")
-    if (response.status === 200) {
-      Object.assign(this.$data, {
-        loading: false,
-        errorOccurred: false,
-        myObjects: response.data,
-      })
-    } else {
-      Object.assign(this.$data, {
-        loading: false,
-        errorOccurred: true,
-        myObjects: null,
-      })
-    }
-  }
-})
-.mount('#second');
-
-Vue.createApp({
-  template: `
-    <div>
-      <section>
-        <h2>Tercer componente</h2>
-        <h5>Este componente espera un arreglo de números y luego los suma, pero va a fallar debido a una url incorrecta.</h5>
-      </section>
-      <section v-if="loading">
-        <p>Cargando...</p>
-      </section>
-      <section v-else-if="errorOccurred">
-        <p>Ocurrió un error</p>
-      </section>
-      <section v-else>
-        {{ myNumbers.reduce((acc, cur) => acc + cur, 0) }}
-      </section>
-    </div>
-  `,
-  data() {
-    return {
-      loading: true,
-      errorOccurred: false,
-      myNumbers: null,
+      fetchedData: null,
     };
   },
   async created() {
@@ -146,15 +52,64 @@ Vue.createApp({
       Object.assign(this.$data, {
         loading: false,
         errorOccurred: false,
-        myNumbers: response.data,
+        fetchedData: response.data,
       })
     } else {
       Object.assign(this.$data, {
         loading: false,
         errorOccurred: true,
-        myNumbers: null,
+        fetchedData: null,
       })
     }
   }
+}
+
+Vue.createApp({
+  template: `
+    <fetcher
+      title="Primer componente"
+      description="Este componente espera un arreglo de strings y los concatena."
+      url="/api/first"
+      v-slot="myStrings"
+    >
+      {{ myStrings.data.join(" - ") }}
+    </fetcher>
+  `,
 })
+.component('fetcher', fetcherComponent)
+.mount('#first');
+
+Vue.createApp({
+  template: `
+    <fetcher
+      title="Segundo componente"
+      description="Este componente espera un arreglo de objetos y presenta cada uno en un párrafo."
+      url="/api/second"
+      v-slot="myObjects"
+    >
+      <p
+        v-for="({ id, name }, index) in myObjects.data"
+        v-bind:key="index"
+      >
+        id: {{ id }}; name: {{ name }}
+      </p>
+    </fetcher>
+  `,
+})
+.component('fetcher', fetcherComponent)
+.mount('#second');
+
+Vue.createApp({
+  template: `
+    <fetcher
+      title="Tercer componente"
+      description="Este componente espera un arreglo de números y luego los suma, pero va a fallar debido a una url incorrecta."
+      url="/api/third"
+      v-slot="myNumbers"
+    >
+      {{ myNumbers.data.reduce((acc, cur) => acc + cur, 0) }}
+    </fetcher>
+  `,
+})
+.component('fetcher', fetcherComponent)
 .mount('#third');
