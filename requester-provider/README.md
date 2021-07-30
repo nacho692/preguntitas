@@ -30,3 +30,12 @@ La fase core inicial de la implementación propuesta va a incluir lo lógica
 mínima necesaria para lograr la comunicación entre ambos usuarios.
 En fases subsiguientes estaré embelleciendo la solución, ya sea a nivel UI o a
 nivel código.
+
+### Core
+
+No me queda claro cómo conviene configurar webpack.
+Me surgen dudas de cómo minimizar el tamaño de los bundles o de cómo dividir
+los módulos.
+Cómo funciona el cache del browser?  
+Hacía qué directorio conviene mandar los archivos?
+Buildeo sólo los js o tmb las imágenes como parece ser comentado en la docu?
