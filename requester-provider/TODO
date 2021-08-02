@@ -1,12 +1,4 @@
   . core
-    - meter webpack para poder usar vue desde npm
-      . armar carpeta public con los html estáticos
-      . cada componente en un js distinto
-
-      . se me ocurre que el js de cada componente va a repetir el código de Vue
-      . acá no es drama porque cada componente va a estar en archivos distintos
-        pero si un mismo html pidiera varios componentes tendría sentido ver
-        cómo reducir eso
     - armar ambos componentes
       . requester
         . lista de números pedidos

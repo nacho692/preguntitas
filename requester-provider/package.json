@@ -4,7 +4,7 @@
   "description": "Interacciones entre usuarios actualizadas en tiempo real. Una excusa para jugar con web sockets y reactividad.",
   "main": "index.js",
   "scripts": {
-    "watch": "nodemon -L -r esm --watch src src/index.js",
+    "start": "node -r esm index.js",
     "build": "webpack --config devops/webpack.config.js"
   },
   "author": "Francisco Figari",

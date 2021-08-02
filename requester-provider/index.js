@@ -17,10 +17,9 @@ const io = new socketsIOServer(app.listen(
 // Un middleware para que todas las requests tengan acceso al servidor de web
 // sockets
 app.use((req,res,next) => {
-    req.io = io;
-    next();
+  req.io = io;
+  next();
 });
 
-const exampleRouter = express.Router();
-exampleRouter.use(express.static(`${__dirname}/public`));
-app.use(exampleRouter);
+console.log(`${__dirname}/public`)
+app.use(express.static(`${__dirname}/public`));

@@ -39,3 +39,13 @@ los módulos.
 Cómo funciona el cache del browser?  
 Hacía qué directorio conviene mandar los archivos?
 Buildeo sólo los js o tmb las imágenes como parece ser comentado en la docu?
+
+Todos estos cables que hay que enchufar para mantener comunicación bidireccional
+dificultan la escalabilidad del código.
+Es necesario abstraer estos enchufes en algún lugar tal que usarlo luego sea
+plug and play.
+
+
+## Discusión
+
+dinamismo / interfaces prehistoricas / apuros corporativos / falta de amor al arte
