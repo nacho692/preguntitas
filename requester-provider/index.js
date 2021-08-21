@@ -21,5 +21,4 @@ app.use((req,res,next) => {
   next();
 });
 
-console.log(`${__dirname}/public`)
 app.use(express.static(`${__dirname}/public`));

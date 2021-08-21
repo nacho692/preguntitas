@@ -1,16 +1,15 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 
-Vue.createApp({
+createApp({
   template: `
     <div>
-      <h1>Requester</h1>
       <div>
         <h2>Números recibidos</h2>
+        {{ receivedNumbers }}
         <ul>
-          <li v-for="n in receivedNumbers">n</li>
+          <li v-for="n in receivedNumbers">{{ n }}</li>
         </ul>
       </div>
-      <button 
     </div>
   `,
   data() {
@@ -19,6 +18,4 @@ Vue.createApp({
       numberRequestIsOpen: false,
     }
   },
-})
-
-export default 'requester'
+}).mount('#requester-component');
