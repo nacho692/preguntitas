@@ -1,9 +1,0 @@
-  . core
-    - armar ambos componentes
-      . requester
-        . lista de números pedidos
-        . puedo pedir un número o ya hice un pedido?
-      . provider
-        . lista de números enviados
-        . tengo un pedido pendiente?
-      . nada de css

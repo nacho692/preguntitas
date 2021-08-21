@@ -1,5 +1,5 @@
 import express from 'express'
-import { Server as socketsIOServer } from 'socket.io';
+import { Server as socketIOServer } from 'socket.io';
 
 const config = {
   port: 3000,
@@ -8,21 +8,30 @@ const config = {
 const app = express();
 app.use(express.urlencoded({extended: true}));
 
-const io = new socketsIOServer(app.listen(
+const io = new socketIOServer(app.listen(
   config.port,
   () => console.log(`App listening at http://localhost:${config.port}`)
 ));
 
-// Un middleware para que todas las requests tengan acceso al servidor de web
-// sockets
-app.use((req,res,next) => {
-  req.io = io;
-  next();
-});
+io.on("connect", socket => {
+  socket.emit('bienvenido', 'holis desde el servidor')
+  socket.on('message', data => {
+    console.log(data)
+  })
+})
 
 app.use(express.static(`${__dirname}/public`));
 
 app.post('/number-request', (req, res) => {
-  console.log(req.body.number)
+  io.emit('number-requested')
+  res.status(204).send()
+})
+
+app.post('/number-provision', (req, res) => {
+  const { number } = req.body
+  if (!number) {
+    return res.status(422).send()
+  }
+  io.emit('number-provided')
   res.status(204).send()
 })
