@@ -1,0 +1,11 @@
+- experimentar con alguna librería de testing de UI
+
+- testing dependiente del tiempo (cómo modifico el reloj al testear)
+
+- cohesive-hover-effect
+  A veces hay botones que cambian el color al hacer hover pero permiten hacer click
+  únicamente en el texto /
+  el resumen de toggl que por un lado esconde las fechas de abajo apenas me paso
+  el mouse por encima pero por otro lado tarda en agregar el popup con el detalle
+  de el día hovereado /
+  no es consistente y se maneja con distintos eventos
