@@ -6,7 +6,6 @@ const config = {
 }
 
 const app = express();
-app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 const io = new socketsIOServer(app.listen(
@@ -22,3 +21,8 @@ app.use((req,res,next) => {
 });
 
 app.use(express.static(`${__dirname}/public`));
+
+app.post('/number-request', (req, res) => {
+  console.log(req.body.number)
+  res.status(204).send()
+})

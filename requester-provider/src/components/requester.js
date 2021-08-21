@@ -10,6 +10,10 @@ createApp({
           <li v-for="n in receivedNumbers">{{ n }}</li>
         </ul>
       </div>
+      <form action="/number-request" method="POST">
+        <input type="number" name="number">
+        <input value="Submit" type="submit">
+      </form>
     </div>
   `,
   data() {
