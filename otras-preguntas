@@ -9,3 +9,5 @@
   el mouse por encima pero por otro lado tarda en agregar el popup con el detalle
   de el día hovereado /
   no es consistente y se maneja con distintos eventos
+
+- capturar el input de la webcam
