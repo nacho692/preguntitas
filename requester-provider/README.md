@@ -48,3 +48,9 @@ Cómo funciona el cache del browser?
 Hacía qué directorio conviene mandar los archivos?
 Buildeo sólo los js o tmb las imágenes como parece ser comentado en la docu?
 
+### Clientes distinguidos
+
+El primer problema obvio de lo implementado hasta ahora es que no se distinguen
+clientes. Si se abren dos pestañas de providers va a pasar que cuando se realiza
+un pedido a ambos les llega el pedido. Similarmente los números enviados por los
+providers llegan a todos los requesters.
