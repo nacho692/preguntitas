@@ -28,5 +28,23 @@ número sea provisto.
 
 La fase core inicial de la implementación propuesta va a incluir lo lógica
 mínima necesaria para lograr la comunicación entre ambos usuarios.
-En fases subsiguientes estaré embelleciendo la solución, ya sea a nivel UI o a
-nivel código.
+
+### Core
+
+Todos los cables estos para comunicación bidireccional picantean la
+escalabilidad del código.
+Si se usan a lo largo de toda la aplicación habría que ver si se pueden abstraer
+todos estos enchufes.
+No es que la comunicación unidireccional sea sencilla tampoco.
+Pero que sea para ambos lados agrega una vuelta de tuerca menos común.
+Parece entonces conveniente limitar el uso de comunicación bidireccional a los
+flujos `servidor -> cliente`, dejando los flujos `cliente -> servidor` armados
+con requests http comunes.
+
+No me queda claro cómo conviene configurar webpack.
+Me surgen dudas de cómo minimizar el tamaño de los bundles o de cómo dividir
+los módulos.
+Cómo funciona el cache del browser?  
+Hacía qué directorio conviene mandar los archivos?
+Buildeo sólo los js o tmb las imágenes como parece ser comentado en la docu?
+
