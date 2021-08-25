@@ -6,6 +6,7 @@ const config = {
 }
 
 const app = express();
+app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 const io = new socketIOServer(app.listen(
@@ -32,6 +33,6 @@ app.post('/number-provision', (req, res) => {
   if (!number) {
     return res.status(422).send()
   }
-  io.emit('number-provided')
+  io.emit('number-provided', number)
   res.status(204).send()
 })

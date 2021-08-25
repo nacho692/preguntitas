@@ -7,7 +7,7 @@ module.exports = {
     requester: './src/components/requester.js',
   },
   optimization: {
-    minimize: true,
+    minimize: false,
     minimizer: [new TerserPlugin({
       extractComments: false,
     })],
