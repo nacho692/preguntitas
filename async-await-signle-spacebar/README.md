@@ -9,3 +9,13 @@ Los dramas son que:
 - la detección de qué tecla se apretó se hace dentro del handler
 
 por lo que no puedo usar directamente `once`.
+
+---
+
+Lo más prolijo es arreglárselas para borrar el evento que se agrega para
+adetectar el evento 'keydown'. Como la detección de la barra de espacio se hace
+dentro del handler, hay que borrar el handler desde adentro.
+
+Tmb pasa que hay que [usar named functions](
+https://stackoverflow.com/a/4402359/2923526) para poder pasar la función a
+`removeEventListener`.
