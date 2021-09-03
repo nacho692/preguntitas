@@ -19,3 +19,27 @@ dentro del handler, hay que borrar el handler desde adentro.
 Tmb pasa que hay que [usar named functions](
 https://stackoverflow.com/a/4402359/2923526) para poder pasar la función a
 `removeEventListener`.
+
+---
+
+Si abstraigo la lógica a una función aparte puedo hacer
+```js
+await forSingleSpaceBarOn(document)
+```
+con
+```js
+const forSingleSpaceBarOn = async (eventTarget) => {
+  const handlerResolvedWith = (res) => {
+    function handler(e) {
+      if (e.code === "Space") {
+        eventTarget.removeEventListener('keydown', handler)
+        res()
+      }
+    }
+    return handler
+  }
+  await new Promise((res) => {
+    eventTarget.addEventListener('keydown', handlerResolvedWith(res))
+  })
+}
+```
