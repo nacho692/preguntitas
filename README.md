@@ -9,6 +9,6 @@ Si correspondiera, el historial de git muestra los cambios necesarios para
 implementar la solución a la pregunta planteada.
 
 - [
-  Detectar el apriete de la barra de espacio una única vez sando sintáxis `async/await`
+  Detectar el apriete de la barra de espacio una única vez usando sintáxis `async/await`
 ](/async-await-signle-spacebar/README.md)
 - [Cómo reutilizo en VueJS3 la lógica de búsqueda de data y la eventual presentación de errores?](/fetcher-component/README.md)
